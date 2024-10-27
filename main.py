@@ -1067,7 +1067,7 @@ with tabs[4]:
            - Compute ciphertext c ≡ m^e mod n
 
         3. **Decryption**:
-           - Compute plaintext m ≡ c^d mod n
+           - Compute plaintext m  c^d mod n
 
         This implementation uses smaller key sizes to speed up the process. Note: These key sizes are NOT secure for real-world use. This implementation is for learning and demonstration only.
         </div>
@@ -1075,5 +1075,69 @@ with tabs[4]:
 
     st.warning("Warning: Do not use this implementation for any real-world security purposes. It is designed for educational use only.")
 
+    # Add this to your About tab
+    with tabs[4]:
+        st.markdown("""
+        ### 📚 Documentation
+        
+        #### How to Use This App
+        1. **Generate Keys**: Use the sidebar to select key size and generate RSA keys
+        2. **Encrypt/Decrypt**: Use the first tab to encrypt or decrypt messages
+        3. **Visualize**: See the RSA process visualization in the second tab
+        4. **Tools**: Explore RSA tools in the third tab
+        5. **Challenges**: Test your understanding with RSA challenges
+        
+        #### Security Notice
+        This is an educational tool. For real-world applications:
+        - Use key sizes of 2048 bits or larger
+        - Use established cryptographic libraries
+        - Never share private keys
+        
+        #### Updates & Feedback
+        - Visit [GitHub Repository](https://github.com/DD-og/RSA-Cryptosystem-Explorer.git)
+        - Report issues or suggest features
+        - Star the repository if you find it helpful
+        """)
+
     st.markdown('</div>', unsafe_allow_html=True)
 
+# Replace the existing footer with this updated version
+st.markdown("""
+    <footer style='
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    '>
+        <div style='display: flex; align-items: center; gap: 0.5rem;'>
+            <span>Made with</span>
+            <span style='color: #ff4b4b; font-size: 1.2rem;'>❤️</span>
+            <span>by DD-og</span>
+        </div>
+        <div style='display: flex; gap: 1rem;'>
+            <a href='https://github.com/DD-og' style='
+                color: white;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                background: rgba(255, 255, 255, 0.1);
+                transition: all 0.3s ease;
+            '>
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+    </footer>
+    
+    <!-- Add padding to prevent content from being hidden behind fixed footer -->
+    <div style='padding-bottom: 4rem;'></div>
+""", unsafe_allow_html=True)
