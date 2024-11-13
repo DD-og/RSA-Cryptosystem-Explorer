@@ -382,71 +382,77 @@ st.markdown("""
 <style>
     /* Modern theme colors and variables */
     :root {
-        --primary-color: #2962FF;
-        --secondary-color: #0D47A1;
-        --text-color: #1A237E;
-        --border-radius: 12px;
-        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Dark mode specific variables */
-    [data-theme="dark"] {
-        --background-color: #1E1E1E;
-        --card-background: #2D2D2D;
-        --text-color: #E0E0E0;
-        --border-color: #404040;
-    }
-
-    /* Light mode specific variables */
-    [data-theme="light"] {
-        --background-color: #F5F7FA;
+        --primary-color: #4F46E5;
+        --secondary-color: #7C3AED;
+        --accent-color: #EC4899;
+        --background-color: #F9FAFB;
         --card-background: #FFFFFF;
-        --text-color: #1A237E;
-        --border-color: #E0E0E0;
+        --text-color: #1F2937;
+        --border-color: #E5E7EB;
+        --border-radius: 16px;
+        --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --background-color: #111827;
+            --card-background: #1F2937;
+            --text-color: #F9FAFB;
+            --border-color: #374151;
+        }
     }
 
     /* Global styles */
     .stApp {
-        background-color: var(--background-color);
+        background: var(--background-color);
         color: var(--text-color);
     }
 
-    /* Header styling */
+    /* Main header styling */
     .main-header {
-        background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 800;
         text-align: center;
-        padding: 2rem 0;
+        padding: 2.5rem 0;
         margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     /* Card container styling */
     .content-card {
         background: var(--card-background);
         border-radius: var(--border-radius);
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
+        padding: 2rem;
+        margin: 1.5rem 0;
         box-shadow: var(--box-shadow);
         border: 1px solid var(--border-color);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .content-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.15);
     }
 
     /* Button styling */
     .stButton > button {
-        width: 100%;
-        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: white;
         border: none;
         padding: 0.75rem 1.5rem;
         border-radius: var(--border-radius);
         font-weight: 600;
         transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        opacity: 0.9;
     }
 
     /* Input field styling */
@@ -454,53 +460,73 @@ st.markdown("""
     .stTextArea > div > div > textarea {
         border-radius: var(--border-radius);
         border: 2px solid var(--border-color);
-        background-color: var(--card-background);
-        color: var(--text-color);
-        padding: 0.75rem;
+        padding: 1rem;
         transition: all 0.3s ease;
+        background: var(--card-background);
+        color: var(--text-color);
     }
     .stTextInput > div > div > input:focus,
     .stTextArea > div > div > textarea:focus {
         border-color: var(--primary-color);
-        box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.2);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
     }
 
     /* Tab styling */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
+        gap: 12px;
         background-color: transparent;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
     }
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
+        height: 60px;
         background-color: var(--card-background);
         border-radius: var(--border-radius);
-        padding: 0 24px;
+        padding: 0 2rem;
         font-weight: 600;
         color: var(--text-color);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
     }
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: white;
+        border: none;
     }
 
     /* Sidebar styling */
     [data-testid="stSidebar"] {
         background-color: var(--card-background);
         border-right: 1px solid var(--border-color);
+        padding: 2rem 1rem;
     }
     [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h3 {
         color: var(--text-color);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
-    /* Code block styling */
-    .stCodeBlock {
-        background-color: var(--card-background) !important;
-        border: 1px solid var(--border-color);
+    /* Progress bar styling */
+    .stProgress > div > div > div > div {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: var(--border-radius);
+    }
+
+    /* Alert/Info box styling */
+    .stAlert {
+        background: var(--card-background);
+        border-radius: var(--border-radius);
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem;
     }
 
     /* Metric styling */
     [data-testid="stMetricValue"] {
-        color: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2rem !important;
+        font-weight: 700;
     }
 
     /* Challenge section styling */
@@ -509,32 +535,33 @@ st.markdown("""
         padding: 2rem;
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
+        margin: 1.5rem 0;
     }
     .challenge-header {
         color: var(--text-color);
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
     }
 
-    /* Alert/Info box styling */
-    .stAlert {
-        background-color: var(--card-background);
-        color: var(--text-color);
-        border-radius: var(--border-radius);
+    /* Footer styling */
+    .footer {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        margin-top: 3rem;
     }
-
-    /* Select box styling */
-    .stSelectbox > div > div {
-        background-color: var(--card-background);
-        color: var(--text-color);
+    .footer a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
     }
-
-    /* Slider styling */
-    .stSlider > div > div {
-        color: var(--text-color);
-    }
-
-    /* Progress bar styling */
-    .stProgress > div > div > div > div {
-        background-color: var(--primary-color);
+    .footer a:hover {
+        background: rgba(255, 255, 255, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -1053,55 +1080,103 @@ with tabs[4]:
     with st.expander("Click to expand"):
         st.markdown("""
         <div class='info-box'>
-        This is a simplified RSA implementation for educational purposes. It demonstrates the key concepts of RSA encryption:
+        ### 🔐 RSA Implementation Overview
 
-        1. **Key Generation**:
-           - Generate two large prime numbers, p and q
-           - Compute n = p * q (the modulus)
-           - Compute φ(n) = (p-1) * (q-1) (Euler's totient function)
-           - Choose e (public exponent) such that 1 < e < φ(n) and gcd(e, φ(n)) = 1
-           - Compute d (private exponent) such that d ≡ e^(-1) mod φ(n)
+        This educational RSA implementation demonstrates various algorithmic concepts:
 
-        2. **Encryption**:
-           - Convert the message to a number m
-           - Compute ciphertext c ≡ m^e mod n
+        #### 🎯 Key Algorithms Used
 
-        3. **Decryption**:
-           - Compute plaintext m  c^d mod n
+        1. **Dynamic Programming & Memoization**
+           - Used in performance measurements
+           - Stores and reuses computed results
+           - Optimizes visualization calculations
+           - Time Complexity: O(key_sizes * message_sizes)
 
-        This implementation uses smaller key sizes to speed up the process. Note: These key sizes are NOT secure for real-world use. This implementation is for learning and demonstration only.
+        2. **Greedy Algorithms**
+           - Prime number generation
+           - Challenge parameter selection
+           - Makes locally optimal choices
+           - Time Complexity: O(bits) for key generation
+
+        3. **Divide and Conquer**
+           - File encryption/decryption
+           - Breaks data into manageable blocks
+           - Processes blocks independently
+           - Time Complexity: O(n/b * e) where n is file size
+
+        4. **Probabilistic Algorithms**
+           - Miller-Rabin primality testing
+           - Monte Carlo factorization
+           - Provides fast, reliable results
+           - Time Complexity: O(k * log³n)
+
+        5. **Transform and Conquer**
+           - Digital signature implementation
+           - Message hashing and verification
+           - Time Complexity: O(log n)
+
+        6. **Brute Force**
+           - Small prime attack simulation
+           - Educational demonstration
+           - Time Complexity: O(√n)
+
+        #### 🔍 Additional Features
+
+        1. **Security Measures**
+           - Constant-time comparisons
+           - Secure random number generation
+           - Parameter validation
+
+        2. **Performance Optimization**
+           - Caching mechanisms
+           - Lazy evaluation
+           - Resource management
+
+        3. **Mathematical Foundations**
+           - Number theory
+           - Modular arithmetic
+           - Cryptographic primitives
+
+        #### ⚠️ Educational Notice
+        This implementation is designed for learning and demonstration. For production use:
+        - Use standard cryptographic libraries
+        - Implement proper key management
+        - Follow security best practices
+        - Use adequate key sizes (2048+ bits)
+
         </div>
         """, unsafe_allow_html=True)
 
     st.warning("Warning: Do not use this implementation for any real-world security purposes. It is designed for educational use only.")
 
-    # Add this to your About tab
-    with tabs[4]:
-        st.markdown("""
-        ### 📚 Documentation
-        
-        #### How to Use This App
-        1. **Generate Keys**: Use the sidebar to select key size and generate RSA keys
-        2. **Encrypt/Decrypt**: Use the first tab to encrypt or decrypt messages
-        3. **Visualize**: See the RSA process visualization in the second tab
-        4. **Tools**: Explore RSA tools in the third tab
-        5. **Challenges**: Test your understanding with RSA challenges
-        
-        #### Security Notice
-        This is an educational tool. For real-world applications:
-        - Use key sizes of 2048 bits or larger
-        - Use established cryptographic libraries
-        - Never share private keys
-        
-        #### Updates & Feedback
-        - Visit [GitHub Repository](https://github.com/DD-og/RSA-Cryptosystem-Explorer.git)
-        - Report issues or suggest features
-        - Star the repository if you find it helpful
-        """)
+    st.markdown("""
+    ### 📚 Documentation
+    
+    #### How to Use This App
+    1. **Generate Keys**: Use the sidebar to select key size and generate RSA keys
+    2. **Encrypt/Decrypt**: Use the first tab to encrypt or decrypt messages
+    3. **Visualize**: See the RSA process visualization in the second tab
+    4. **Tools**: Explore RSA tools in the third tab
+    5. **Challenges**: Test your understanding with RSA challenges
+    
+    #### Security Notice
+    This is an educational tool. For real-world applications:
+    - Use key sizes of 2048 bits or larger
+    - Use established cryptographic libraries
+    - Never share private keys
+    
+    #### Updates & Feedback
+    - Visit [GitHub Repository](https://github.com/DD-og/RSA-Cryptosystem-Explorer.git)
+    - Report issues or suggest features
+    - Star the repository if you find it helpful
+    """)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Replace the existing footer with this updated version
+# Add padding before footer
+st.markdown("<div style='padding-bottom: 4rem;'></div>", unsafe_allow_html=True)
+
+# Replace the existing footer with the fixed footer
 st.markdown("""
     <footer style='
         position: fixed;
@@ -1137,7 +1212,4 @@ st.markdown("""
             </a>
         </div>
     </footer>
-    
-    <!-- Add padding to prevent content from being hidden behind fixed footer -->
-    <div style='padding-bottom: 4rem;'></div>
 """, unsafe_allow_html=True)
